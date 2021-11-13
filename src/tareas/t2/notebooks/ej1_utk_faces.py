@@ -101,39 +101,8 @@ if __name__ == '__main__':
     # reproducibilidad
     set_seed()
 
-    model = tvm.shufflenet_v2_x0_5()
 
-    print(summary(model, (1, 3, IMG_SIZE, IMG_SIZE),
-                  col_names=['input_size', 'output_size'],
-                  device='cpu', verbose=0))
 
-    # ### 1.2 Remplazando la etapa de clasificación
-    #
-    # En este caso la etapa de clasificación es solo la capa `model.fc`.
-
-    # remplazo de última capa
-    model.fc = nn.Linear(1024, 1)
-
-    print(model)
-
-    # In[73]:
-
-    # prueba con datos sintéticos
-    x = torch.zeros(1, 3, 224, 224)
-    y = model(x)
-    print(f'{x.shape} => {y.shape}')
-
-    # In[74]:
-
-    print(summary(model, (1, 3, IMG_SIZE, IMG_SIZE),
-                  col_names=['input_size', 'output_size'],
-                  device='cpu', verbose=0))
-
-    # ### 1.3 Estudiando la tubería de datos de la tarea base.
-    #
-    # Torchvision provee la [información](https://pytorch.org/vision/stable/models.html#classification) necesaria para realizar tranferencia con sus modelos en la página principal (además de los [scripts de entrenamiento](https://github.com/pytorch/vision/tree/main/references/classification) para los curiosos).
-    #
-    # Para nuestro caso nos interesa el tamaño de la entrada (lo conociamos previamente) y las estádisticas de normalización.
 
     # In[75]:
 
