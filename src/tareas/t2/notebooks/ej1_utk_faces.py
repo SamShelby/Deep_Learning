@@ -429,7 +429,7 @@ if __name__ == '__main__':
                 save_check_point(model, epoch, run_dir)
 
 
-    def train_model(pretrained=True, epochs=20):
+    def train_model(pretrained=True, epochs=20, freeze_params_buffers=True):
         # directorio de la corrida
         run_dir = join('runs', 'utkfaces', timestamp())
 
@@ -439,7 +439,7 @@ if __name__ == '__main__':
 
         # tensorboard --logdir src/tareas/t2/notebooks/runs/utkfaces
         # instanciamos modelo con pesos
-        model = shufflenet_v2_x0_5(pretrained=pretrained)
+        model = shufflenet_v2_x0_5(pretrained=pretrained, freeze_params_buffers=freeze_params_buffers)
         # entrenamos modelo
         train(model, trn_dl, tst_dl, trn_writer, val_writer, run_dir=run_dir,
               epochs=epochs, trn_batches=5, val_batches=5)
